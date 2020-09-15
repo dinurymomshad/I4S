@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:intelligentstudysuite/stories/observable_alarm.dart';
+import 'package:intelligentstudysuite/stories/searchable_selection.dart';
 import 'package:mobx/mobx.dart';
-import 'package:random_alarm/components/music_selection_dialog/dialog_base.dart';
-import 'package:random_alarm/stores/music_selection/searchable_selection.dart';
-import 'package:random_alarm/stores/observable_alarm/observable_alarm.dart';
+
+import 'dialogue_base.dart';
 
 class PlaylistSelectionDialog extends StatelessWidget {
   final ObservableAlarm alarm;
@@ -16,11 +17,10 @@ class PlaylistSelectionDialog extends StatelessWidget {
       : store = SearchableSelectionStore(
             playlists,
             alarm.playlistInfo.map((info) => info.id).toList(),
-            (info) => info.id,
-            (info, search) {
-              final filter = RegExp(search, caseSensitive: false);
-              return info.name.contains(filter);
-            }),
+            (info) => info.id, (info, search) {
+          final filter = RegExp(search, caseSensitive: false);
+          return info.name.contains(filter);
+        }),
         super(key: key);
 
   @override
@@ -34,7 +34,9 @@ class PlaylistSelectionDialog extends StatelessWidget {
     };
 
     return DialogBase(
-      child: PlaylistList(store: store,),
+      child: PlaylistList(
+        store: store,
+      ),
       onDone: onDone,
       onSearchClear: () => store.clearSearch(),
       onSearchChange: (newValue) => store.currentSearch = newValue,

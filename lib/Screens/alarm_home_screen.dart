@@ -17,60 +17,69 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  final AlarmListManager _manager = AlarmListManager(alarms);
+    final AlarmListManager _manager = AlarmListManager(alarms);
 
     return DefaultContainer(
-      child: Column(
-        children: <Widget>[
-          Text(
-            'Your alarms',
-            style: TextStyle(fontSize: 28, color: Colors.white),
-          ),
-          Flexible(
-            child: Observer(
-              builder: (context) => ListView.separated(
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  final alarm = alarms.alarms[index];
+      child: Container(
+        child: Column(
+          children: [
+            Expanded(
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    'Your alarms',
+                    style: TextStyle(fontSize: 28, color: Colors.white),
+                  ),
+                  Flexible(
+                    child: Observer(
+                      builder: (context) => ListView.separated(
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          final alarm = alarms.alarms[index];
 
-                  return Dismissible(
-                    key: Key(alarm.id.toString()),
-                    child: AlarmItem(alarm: alarm, manager: _manager),
-                    onDismissed: (_) {
-                      AlarmScheduler().clearAlarm(alarm);
-                      alarms.alarms.removeAt(index);
+                          return Dismissible(
+                            key: Key(alarm.id.toString()),
+                            child: AlarmItem(alarm: alarm, manager: _manager),
+                            onDismissed: (_) {
+                              AlarmScheduler().clearAlarm(alarm);
+                              alarms.alarms.removeAt(index);
+                            },
+                          );
+                        },
+                        itemCount: alarms.alarms.length,
+                        separatorBuilder: (context, index) => const Divider(),
+                      ),
+                    ),
+                  ),
+                  BottomAddButton(
+                    onPressed: () {
+                      TimeOfDay tod = TimeOfDay.fromDateTime(DateTime.now());
+                      final newAlarm = ObservableAlarm.dayList(
+                          alarms.alarms.length,
+                          'New Alarm',
+                          tod.hour,
+                          tod.minute,
+                          0.3,
+                          true,
+                          List.filled(7, false),
+                          ObservableList<String>.of([]), <String>[]);
+                      alarms.alarms.add(newAlarm);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditAlarm(
+                            alarm: newAlarm,
+                            manager: _manager,
+                          ),
+                        ),
+                      );
                     },
-                  );
-                },
-                itemCount: alarms.alarms.length,
-                separatorBuilder: (context, index) => const Divider(),
+                  )
+                ],
               ),
             ),
-          ),
-          BottomAddButton(
-            onPressed: () {
-              TimeOfDay tod = TimeOfDay.fromDateTime(DateTime.now());
-              final newAlarm = ObservableAlarm.dayList(
-                alarms.alarms.length,
-                'New Alarm',
-                tod.hour,
-                tod.minute,
-                0.3,
-                true,
-                List.filled(7, false),
-                ObservableList<String>.of([]),
-                <String>[]
-              );
-              alarms.alarms.add(newAlarm);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EditAlarm(alarm: newAlarm, manager: _manager,),
-                ),
-              );
-            },
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

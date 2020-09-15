@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:intelligentstudysuite/components/music_selection_dialogue/dialogue_base.dart';
+import 'package:intelligentstudysuite/stories/observable_alarm.dart';
+import 'package:intelligentstudysuite/stories/searchable_selection.dart';
 import 'package:mobx/mobx.dart';
-import 'package:random_alarm/components/music_selection_dialog/dialog_base.dart';
-import 'package:random_alarm/stores/music_selection/searchable_selection.dart';
-import 'package:random_alarm/stores/observable_alarm/observable_alarm.dart';
 
 bool songFilter(SongInfo info, String currentSearch) {
   final filter = RegExp(currentSearch, caseSensitive: false);

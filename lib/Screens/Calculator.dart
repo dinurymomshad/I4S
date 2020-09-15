@@ -177,68 +177,68 @@ class _CalculatorState extends State<Calculator> {
         padding: const EdgeInsets.all(8.0),
         child: Container(
           child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-          Container(
-            constraints: BoxConstraints.expand(
-              height:
-                  Theme.of(context).textTheme.display1.fontSize * 1.1 + 100.0,
-            ),
-            alignment: Alignment.bottomRight,
-            child: Text(
-              "$ansStr",
-              style: TextStyle(
-                fontSize: 50.0,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Container(
+                constraints: BoxConstraints.expand(
+                  height: Theme.of(context).textTheme.bodyText2.fontSize * 1.1 +
+                      100.0,
+                ),
+                alignment: Alignment.bottomRight,
+                child: Text(
+                  "$ansStr",
+                  style: TextStyle(
+                    fontSize: 50.0,
+                  ),
+                  textAlign: TextAlign.right,
+                ),
               ),
-              textAlign: TextAlign.right,
-            ),
-          ),
-          Expanded(
-              child: Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                _button("9", _nine),
-                _button("8", _eight),
-                _button("7", _seven),
-                _button("+", _add)
-              ],
-            ),
-          ),
-          Expanded(
-              child: Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                _button("6", _six),
-                _button("5", _five),
-                _button("4", _four),
-                _button("-", _sub)
-              ],
-            ),
-          ),
-          Expanded(
-              child: Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                _button("3", _three),
-                _button("2", _two),
-                _button("1", _one),
-                _button("*", _mul)
-              ],
-            ),
-          ),
-          Expanded(
+              Expanded(
                 child: Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                _button("C", _clear),
-                _button("0", _zero),
-                _button("=", _disp),
-                _button("/", _div)
-              ],
-            ),
+                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    _button("9", _nine),
+                    _button("8", _eight),
+                    _button("7", _seven),
+                    _button("+", _add)
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    _button("6", _six),
+                    _button("5", _five),
+                    _button("4", _four),
+                    _button("-", _sub)
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    _button("3", _three),
+                    _button("2", _two),
+                    _button("1", _one),
+                    _button("*", _mul)
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    _button("C", _clear),
+                    _button("0", _zero),
+                    _button("=", _disp),
+                    _button("/", _div)
+                  ],
+                ),
+              ),
+            ],
           ),
-              ],
-            ),
         ),
       ),
     );

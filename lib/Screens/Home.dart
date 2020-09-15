@@ -1,4 +1,3 @@
-import 'package:carousel_pro/carousel_pro.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intelligentstudysuite/Models/ModelClass.dart';
@@ -26,6 +25,7 @@ class _HomeState extends State<Home> {
       throw 'Could not launch $url';
     }
   }
+
   _launch8URL() async {
     const url = 'https://www.jozifm.co.za/';
     if (await canLaunch(url)) {
@@ -36,16 +36,16 @@ class _HomeState extends State<Home> {
   }
 
   List<Image> imagess = [
-        Image.asset("assets/slide1.JPG"),
-        Image.asset("assets/slide2.JPG"),
-        Image.asset("assets/slide3.JPG"), //yeee
-        Image.asset("assets/slide4.JPG"),
-        Image.asset("assets/slide5.JPG"),
-        Image.asset("assets/slide6.JPG"),
-        Image.asset("assets/slide7.JPG"),
-        Image.asset("assets/slider7.jpeg"),//yeeeee
-      ];
-  @override
+    Image.asset("assets/slide1.JPG"),
+    Image.asset("assets/slide2.JPG"),
+    Image.asset("assets/slide3.JPG"), //yeee
+    Image.asset("assets/slide4.JPG"),
+    Image.asset("assets/slide5.JPG"),
+    Image.asset("assets/slide6.JPG"),
+    Image.asset("assets/slide7.JPG"),
+    Image.asset("assets/slider7.jpeg"), //yeeeee
+  ];
+  //@override
   // Widget imageCoursel = Container(
   //   height: 120,
   //   child: Carousel(
@@ -59,24 +59,24 @@ class _HomeState extends State<Home> {
   // );
 
   final List<ChatListItem> chatListItem = [
-   ChatListItem(
-     title: "Alarm",
-   ),
-   ChatListItem(
-     title: "Torch",
-   ),
-   ChatListItem(
-     title: "CountDown",
-   ),
-   ChatListItem(
-     title: "Learning Essential",
-   ),
-   ChatListItem(
-     title: "Community Radio",
-   )
-   ];
-     final CarouselController _controller = CarouselController();
-    int _current = 0;
+    ChatListItem(
+      title: "Alarm",
+    ),
+    ChatListItem(
+      title: "Torch",
+    ),
+    ChatListItem(
+      title: "CountDown",
+    ),
+    ChatListItem(
+      title: "Learning Essential",
+    ),
+    ChatListItem(
+      title: "Community Radio",
+    )
+  ];
+  final CarouselController _controller = CarouselController();
+  int _current = 0;
   Widget build(BuildContext context) {
     return Scaffold(
       endDrawer: Drawer(
@@ -262,33 +262,37 @@ class _HomeState extends State<Home> {
       body: Column(
         children: <Widget>[
           InkWell(
-              onTap: (){
-                if(_controller == 2){
-                  print(_current);
-                  _launch3URL();
-                }else if(_controller == 7){
-                  print(_current);
-                  _launch8URL();
-                }
-              },
-              child: CarouselSlider(
+            onTap: () {
+              if (_current == 2) {
+                print(_current);
+                _launch3URL();
+              } else if (_current == 7) {
+                print(_current);
+                _launch8URL();
+              }
+            },
+            child: CarouselSlider(
               options: CarouselOptions(
-              height: 200,
-              aspectRatio: 18/12,
-              viewportFraction: 0.9,
-              initialPage: 0,
-              enableInfiniteScroll: true,
-              reverse: false,
-              autoPlay: true,
-              autoPlayInterval: Duration(seconds: 3),
-              autoPlayAnimationDuration: Duration(milliseconds: 800),
-              autoPlayCurve: Curves.fastOutSlowIn,
-              enlargeCenterPage: true,
-              carouselController: _controller,
-              scrollDirection: Axis.horizontal,
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    _current = index;
+                  });
+                },
+                height: 200,
+                aspectRatio: 18 / 12,
+                viewportFraction: 0.9,
+                initialPage: 0,
+                enableInfiniteScroll: true,
+                reverse: false,
+                autoPlay: true,
+                autoPlayInterval: Duration(seconds: 3),
+                autoPlayAnimationDuration: Duration(milliseconds: 800),
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enlargeCenterPage: true,
+                carouselController: _controller,
+                scrollDirection: Axis.horizontal,
               ),
               items: imagess,
-              
             ),
           ),
           Row(
@@ -303,57 +307,61 @@ class _HomeState extends State<Home> {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              height: MediaQuery.of(context).size.height / 2.5,
-              width: MediaQuery.of(context).size.width,
-                child: Flexible(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                  height: MediaQuery.of(context).size.height / 2.5,
+                  width: MediaQuery.of(context).size.width,
+                  child: Flexible(
                     child: ListView.separated(
-                    shrinkWrap: true,
-                  itemCount: chatListItem.length,
-                  separatorBuilder: (ctx,i){
-                    return Divider(
-                      indent: 20.0,
-                      endIndent: 20.0,
-                    );
-                  },
-                  itemBuilder: (ctx,i){
-                    return Padding(
-                      padding: const EdgeInsets.only(right:8.0,left: 8.0),
-                      child: InkWell(
-                        onTap: (){
-                          if(i == 0){
-                            Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => Alarm()
-                            ));
-                          }else if(i == 1){
-                            Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => Torch()
-                            ));
-                          }else if(i == 2){
-                            Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => CutDownTim()
-                            ));
-                          }else if(i == 3){
-                            // Navigator.push(context, MaterialPageRoute(
-                            //   builder: (context) => AlramPage()
-                            // ));
-                          }
+                        shrinkWrap: true,
+                        itemCount: chatListItem.length,
+                        separatorBuilder: (ctx, i) {
+                          return Divider(
+                            indent: 20.0,
+                            endIndent: 20.0,
+                          );
                         },
-                          child: Card(
-                          elevation: 3.0,
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Text(chatListItem[i].title,style: TextStyle(fontSize: 20),),
-                          ),
-                        ),
-                      ),
-                    );
-                  }
-                 ),
-                )
-              )
-            )      
+                        itemBuilder: (ctx, i) {
+                          return Padding(
+                            padding:
+                                const EdgeInsets.only(right: 8.0, left: 8.0),
+                            child: InkWell(
+                              onTap: () {
+                                if (i == 0) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Alarm()));
+                                } else if (i == 1) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Torch()));
+                                } else if (i == 2) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => CutDownTim()));
+                                } else if (i == 3) {
+                                  // Navigator.push(context, MaterialPageRoute(
+                                  //   builder: (context) => AlramPage()
+                                  // ));
+                                }
+                              },
+                              child: Card(
+                                elevation: 3.0,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Text(
+                                    chatListItem[i].title,
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                  )))
         ],
       ),
     );
